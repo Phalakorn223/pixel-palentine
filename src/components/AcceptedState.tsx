@@ -73,7 +73,7 @@ const AcceptedState = () => {
             {/* Support / Contact Section */}
             <div className="w-full max-w-[95%] md:max-w-[90%] mt-3 md:mt-4 flex flex-col items-center gap-2 md:gap-3 border-t-2 border-dashed border-[#ffb7c5] pt-3 md:pt-4">
               <p className="text-[#ff4d4d] font-pixel text-[10px] md:text-sm animate-pulse font-bold text-center">
-                💌 ติดต่อเพิ่มเติม / สนับสนุนเราได้ที่ 👇
+                💌 สนับสนุนเราได้ที่ 👇
               </p>
 
               <div
