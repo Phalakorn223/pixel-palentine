@@ -1,6 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import PixelCat from "./PixelCat";
-import pixelWindowBg from "@/assets/pixel-window-bg.png";
 
 interface LetterWindowProps {
   onAccept: () => void;
@@ -17,11 +16,30 @@ const LetterWindow = ({ onAccept }: LetterWindowProps) => {
     const container = containerRef.current;
     if (!container) return;
 
+<<<<<<< HEAD
     const containerRect = container.getBoundingClientRect();
     // Position button initially at its default location within the window
     setNoButtonPos({
       x: containerRect.left + containerRect.width / 2 + 40, // Offset to the right of YES button
       y: containerRect.top + containerRect.height - 80, // Near bottom of window
+=======
+    const rect = container.getBoundingClientRect();
+    // Allow button to escape outside the container (range: -150 to container width + 100)
+    const minX = -150;
+    const maxX = rect.width + 100;
+    const minY = -80;
+    const maxY = rect.height + 60;
+    
+    const newX = minX + Math.random() * (maxX - minX);
+    const newY = minY + Math.random() * (maxY - minY);
+
+    setNoButtonStyle({
+      position: "absolute",
+      left: `${newX}px`,
+      top: `${newY}px`,
+      transition: "all 0.2s ease",
+      zIndex: 50,
+>>>>>>> 7475f5f8e8a5ed1512e0fad318f5fb865ec10a0f
     });
   }, []);
 
@@ -81,6 +99,7 @@ const LetterWindow = ({ onAccept }: LetterWindowProps) => {
   return (
     <div className="animate-scale-in" style={{ animation: "scaleIn 0.4s ease-out" }}>
       {/* Retro window */}
+<<<<<<< HEAD
       <div
         className="relative w-[480px] md:w-[560px] overflow-visible"
         style={{
@@ -96,6 +115,26 @@ const LetterWindow = ({ onAccept }: LetterWindowProps) => {
         <div
           ref={containerRef}
           className="absolute inset-0 pt-[25%] px-[8%] pb-[12%] flex flex-col items-center gap-8"
+=======
+      <div className="bg-card pixel-border-thick rounded-sm w-[320px] md:w-[400px] overflow-hidden">
+        {/* Title bar */}
+        <div className="bg-primary px-3 py-2 flex items-center justify-between">
+          <div className="flex gap-2">
+            <span className="text-primary-foreground text-xs">♥</span>
+            <span className="text-primary-foreground text-xs">♥</span>
+            <span className="text-primary-foreground text-xs">♥</span>
+          </div>
+          <span className="text-primary-foreground text-[10px] tracking-widest">
+            LOVE
+          </span>
+          <div className="w-12" />
+        </div>
+
+        {/* Content */}
+        <div
+          ref={containerRef}
+          className="relative p-6 md:p-8 flex flex-col items-center gap-6 min-h-[280px]"
+>>>>>>> 7475f5f8e8a5ed1512e0fad318f5fb865ec10a0f
         >
           <PixelCat />
 
@@ -109,13 +148,24 @@ const LetterWindow = ({ onAccept }: LetterWindowProps) => {
               onClick={onAccept}
               className="bg-pixel-green text-primary-foreground px-6 py-3 text-sm font-pixel pixel-border cursor-pointer hover:brightness-110 active:translate-y-[2px] transition-all z-10"
             >
-              ✅ YES
+              YES
             </button>
 
+<<<<<<< HEAD
             {/* Placeholder for NO button to maintain layout */}
             {!isNoButtonMoving && (
               <div className="w-[88px] h-[44px]"></div>
             )}
+=======
+            <button
+              onMouseEnter={handleNoHover}
+              onTouchStart={handleNoHover}
+              style={noButtonStyle}
+              className="bg-primary text-primary-foreground px-5 py-2 text-[10px] font-pixel pixel-border cursor-pointer hover:brightness-110 active:translate-y-[2px] transition-all z-10"
+            >
+              NO
+            </button>
+>>>>>>> 7475f5f8e8a5ed1512e0fad318f5fb865ec10a0f
           </div>
         </div>
       </div>
