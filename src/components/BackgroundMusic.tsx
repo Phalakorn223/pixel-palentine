@@ -1,54 +1,56 @@
-import React, { useState, useEffect } from "react";
-// @ts-ignore
-import ReactPlayer from "react-player";
-import { Music, Music2, Volume2, VolumeX } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Volume2, VolumeX } from "lucide-react";
 import { Button } from "./ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 
 const BackgroundMusic = () => {
     const [isPlaying, setIsPlaying] = useState(false);
-    const [isMuted, setIsMuted] = useState(false);
-    const [hasInteracted, setHasInteracted] = useState(false);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
 
-    // Auto-play attempt on first interaction with the page
     useEffect(() => {
+        // Create audio element
+        const audio = new Audio("/bgm.mp3");
+        audio.loop = true;
+        audio.volume = 0.4;
+        audioRef.current = audio;
+
         const handleFirstInteraction = () => {
-            if (!hasInteracted) {
-                setHasInteracted(true);
-                setIsPlaying(true);
+            if (audioRef.current && !isPlaying) {
+                audioRef.current.play().then(() => {
+                    setIsPlaying(true);
+                }).catch(err => {
+                    console.log("Autoplay blocked:", err);
+                });
             }
+            // Remove listeners after first interaction
+            window.removeEventListener("click", handleFirstInteraction);
+            window.removeEventListener("keydown", handleFirstInteraction);
         };
 
         window.addEventListener("click", handleFirstInteraction);
         window.addEventListener("keydown", handleFirstInteraction);
 
         return () => {
+            audio.pause();
             window.removeEventListener("click", handleFirstInteraction);
             window.removeEventListener("keydown", handleFirstInteraction);
         };
-    }, [hasInteracted]);
+    }, []);
 
     const togglePlay = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setIsPlaying(!isPlaying);
+        if (audioRef.current) {
+            if (isPlaying) {
+                audioRef.current.pause();
+            } else {
+                audioRef.current.play();
+            }
+            setIsPlaying(!isPlaying);
+        }
     };
 
     return (
         <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2">
-            <div className="absolute -top-[1000px] -left-[1000px] opacity-0 pointer-events-none w-1 h-1 overflow-hidden">
-                {/* @ts-ignore */}
-                <ReactPlayer
-                    url="https://www.youtube.com/watch?v=BH-SnQ8J1VU"
-                    playing={isPlaying}
-                    loop={true}
-                    volume={0.5}
-                    muted={isMuted}
-                    playsinline
-                    width="100%"
-                    height="100%"
-                />
-            </div>
-
             <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger asChild>
@@ -74,7 +76,7 @@ const BackgroundMusic = () => {
             {isPlaying && (
                 <div className="bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full border border-pink-100 shadow-sm animate-in fade-in slide-in-from-right-2 duration-500">
                     <p className="text-[10px] font-pixel text-pink-400 whitespace-nowrap">
-                        🎵 Now Playing: And So It Begins
+                        🎵 Now Playing: Valentine BGM
                     </p>
                 </div>
             )}
