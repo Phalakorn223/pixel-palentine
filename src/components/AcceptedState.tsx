@@ -50,7 +50,7 @@ const AcceptedState = () => {
             {/* Date Box - Red Border, Pink Background */}
             <div className="w-full max-w-[90%] border-4 border-[#ff4d4d] bg-[#ffe6e6] p-4 text-center mt-2 relative">
               <p className="text-[10px] md:text-xs text-[#888] font-bold tracking-widest mb-2 uppercase">
-                ♡ Valentine Date ♡
+                ♡ Valentine Day ♡
               </p>
 
               <div className="font-pixel text-[#333] space-y-1">
@@ -66,7 +66,7 @@ const AcceptedState = () => {
               </div>
 
               <p className="text-[#ff4d4d] text-sm mt-3 font-bold uppercase tracking-wide flex items-center justify-center gap-2">
-                เยสแน่นอน อิอิ <span className="animate-spin-slow">✨</span>
+                อยู่ด้วยกันไปนานๆน้าาา <span className="animate-spin-slow">✨</span>
               </p>
             </div>
 
