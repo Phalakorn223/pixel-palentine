@@ -66,7 +66,7 @@ const LetterWindow = ({ onAccept }: LetterWindowProps) => {
               onClick={onAccept}
               className="bg-pixel-green text-primary-foreground px-5 py-2 text-[10px] font-pixel pixel-border cursor-pointer hover:brightness-110 active:translate-y-[2px] transition-all z-10"
             >
-              ✅ YES
+              YES
             </button>
 
             <button
@@ -75,7 +75,7 @@ const LetterWindow = ({ onAccept }: LetterWindowProps) => {
               style={noButtonStyle}
               className="bg-primary text-primary-foreground px-5 py-2 text-[10px] font-pixel pixel-border cursor-pointer hover:brightness-110 active:translate-y-[2px] transition-all z-10"
             >
-              ❌ NO
+              NO
             </button>
           </div>
         </div>
