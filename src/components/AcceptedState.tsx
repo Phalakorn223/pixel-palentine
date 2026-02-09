@@ -55,7 +55,7 @@ const AcceptedState = () => {
                   Love You Naa Jaa
                 </p>
                 <p className="text-sm md:text-lg">
-                  Jup Jup
+                  Jub Jub
                 </p>
                 <p className="text-sm md:text-lg">
                   💖💗❤️
@@ -97,7 +97,7 @@ const AcceptedState = () => {
               </div>
 
               <p className="text-[#ff8fab] text-[9px] md:text-xs font-pixel mt-1 text-center">
-                ขอบคุณนะค๊าบบบบ~ 💖
+                ขอบคุณนะค๊าบบบบ ~ 💖
               </p>
             </div>
 
