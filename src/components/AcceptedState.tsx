@@ -1,24 +1,27 @@
 import PixelCat from "./PixelCat";
 import FloatingHearts from "./FloatingHearts";
-import pixelWindowBg from "@/assets/pixel-window-bg.png";
 
 const AcceptedState = () => {
   return (
     <>
       <FloatingHearts />
       <div style={{ animation: "scaleIn 0.4s ease-out" }}>
-        <div 
-          className="relative w-[320px] md:w-[400px] overflow-hidden"
-          style={{
-            backgroundImage: `url(${pixelWindowBg})`,
-            backgroundSize: '100% 100%',
-            backgroundRepeat: 'no-repeat',
-            imageRendering: 'pixelated',
-            aspectRatio: '1/1.1',
-          }}
-        >
+        <div className="bg-card pixel-border-thick rounded-sm w-[320px] md:w-[400px] overflow-hidden">
+          {/* Title bar */}
+          <div className="bg-primary px-3 py-2 flex items-center justify-between">
+            <div className="flex gap-2">
+              <span className="text-primary-foreground text-xs">♥</span>
+              <span className="text-primary-foreground text-xs">♥</span>
+              <span className="text-primary-foreground text-xs">♥</span>
+            </div>
+            <span className="text-primary-foreground text-[10px] tracking-widest">
+              LOVE
+            </span>
+            <div className="w-12" />
+          </div>
+
           {/* Content */}
-          <div className="absolute inset-0 pt-[25%] px-[8%] pb-[12%] flex flex-col items-center gap-4">
+          <div className="p-6 md:p-8 flex flex-col items-center gap-5">
             <PixelCat happy />
 
             <p className="text-primary text-sm md:text-base text-center animate-pulse-glow">
