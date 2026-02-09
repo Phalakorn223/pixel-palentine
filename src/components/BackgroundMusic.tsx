@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ReactPlayer from "react-player";
+// @ts-ignore
+import ReactPlayer from "react-player/lazy";
 import { Music, Music2, Volume2, VolumeX } from "lucide-react";
 import { Button } from "./ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
@@ -35,6 +36,7 @@ const BackgroundMusic = () => {
     return (
         <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2">
             <div className="hidden">
+                {/* @ts-ignore */}
                 <ReactPlayer
                     url="https://www.youtube.com/watch?v=BH-SnQ8J1VU"
                     playing={isPlaying}
