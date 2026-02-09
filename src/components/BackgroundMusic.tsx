@@ -11,7 +11,7 @@ const BackgroundMusic = () => {
         // Create audio element
         const audio = new Audio("/bgm.mp3");
         audio.loop = true;
-        audio.volume = 0.4;
+        audio.volume = 0.3;
         audioRef.current = audio;
 
         const handleFirstInteraction = () => {
