@@ -14,7 +14,7 @@ const FloatingHearts = () => {
   useEffect(() => {
     const initial: Heart[] = Array.from({ length: 15 }, (_, i) => ({
       id: i,
-      left: Math.random() * 100,
+      left: 20 + Math.random() * 60, // Keep hearts more centered
       delay: Math.random() * 3,
       size: 12 + Math.random() * 20,
       duration: 3 + Math.random() * 4,
@@ -26,7 +26,7 @@ const FloatingHearts = () => {
         ...prev,
         {
           id: Date.now(),
-          left: Math.random() * 100,
+          left: 20 + Math.random() * 60, // Keep hearts more centered
           delay: 0,
           size: 12 + Math.random() * 20,
           duration: 3 + Math.random() * 4,

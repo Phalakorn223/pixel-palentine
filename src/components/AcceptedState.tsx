@@ -33,11 +33,8 @@ const AcceptedState = () => {
           {/* Content */}
           <div className="flex-1 w-full p-4 md:p-6 flex flex-col items-center justify-start gap-4 relative overflow-hidden">
 
-            {/* Floating hearts around cat - Responsive Positioning */}
-            <div className="absolute top-[8%] left-[15%] animate-bounce-soft text-[#ff4d4d] text-lg md:text-xl">♥</div>
-            <div className="absolute top-[6%] right-[18%] animate-pulse text-[#ff8fab] text-lg md:text-xl">♥</div>
-
-            <div className="mt-2 scale-90 md:scale-100">
+            {/* Content area with improved layout */}
+            <div className="mt-6 scale-90 md:scale-100 flex flex-col items-center">
               <PixelCat happy />
             </div>
 
