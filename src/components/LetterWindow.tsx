@@ -14,16 +14,21 @@ const LetterWindow = ({ onAccept }: LetterWindowProps) => {
     if (!container) return;
 
     const rect = container.getBoundingClientRect();
-    const maxX = rect.width - 100;
-    const maxY = rect.height - 50;
-    const newX = Math.random() * maxX;
-    const newY = Math.random() * maxY;
+    // Allow button to escape outside the container (range: -150 to container width + 100)
+    const minX = -150;
+    const maxX = rect.width + 100;
+    const minY = -80;
+    const maxY = rect.height + 60;
+    
+    const newX = minX + Math.random() * (maxX - minX);
+    const newY = minY + Math.random() * (maxY - minY);
 
     setNoButtonStyle({
       position: "absolute",
       left: `${newX}px`,
       top: `${newY}px`,
       transition: "all 0.2s ease",
+      zIndex: 50,
     });
   }, []);
 
