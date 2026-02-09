@@ -12,67 +12,67 @@ const AcceptedState = () => {
       <div className="animate-scale-in" style={{ animation: "scaleIn 0.4s ease-out" }}>
         {/* Red Theme Window (Matching Reference Image 1) */}
         <div
-          className="relative w-[480px] md:w-[560px] overflow-visible bg-[#fff5f5] border-4 border-[#ff4d4d] shadow-[8px_8px_0_0_rgba(0,0,0,0.1)] flex flex-col items-center"
+          className="relative w-[min(90vw,560px)] overflow-visible bg-[#fff5f5] border-4 border-[#ff4d4d] shadow-[8px_8px_0_0_rgba(0,0,0,0.1)] flex flex-col items-center"
           style={{
             imageRendering: 'pixelated',
-            minHeight: '600px', // Increased height to fit QR code
-            paddingBottom: '2rem',
+            minHeight: 'min(85vh, 650px)',
+            paddingBottom: '1.5rem',
           }}
         >
           {/* Decorative Header - Red Background, White Text */}
-          <div className="w-full h-10 bg-[#ff4d4d] flex items-center justify-between px-4">
+          <div className="w-full h-10 md:h-12 bg-[#ff4d4d] flex items-center justify-between px-4">
             <div className="flex gap-2">
               <span className="text-white text-xs">♥</span>
               <span className="text-white text-xs">♥</span>
               <span className="text-white text-xs">♥</span>
             </div>
-            <div className="text-white font-bold tracking-[0.2em] text-lg font-pixel uppercase">LOVE</div>
-            <div className="w-12"></div> {/* Spacer for centering */}
+            <div className="text-white font-bold tracking-[0.2em] text-base md:text-lg font-pixel uppercase italic">LOVE</div>
+            <div className="w-10 md:w-12"></div>
           </div>
 
           {/* Content */}
-          <div className="flex-1 w-full p-6 flex flex-col items-center justify-start gap-4 relative">
+          <div className="flex-1 w-full p-4 md:p-6 flex flex-col items-center justify-start gap-4 relative overflow-hidden">
 
-            {/* Floating hearts around cat */}
-            <div className="absolute top-16 left-20 animate-bounce-soft text-[#ff4d4d]">♥</div>
-            <div className="absolute top-12 right-24 animate-pulse text-[#ff8fab]">♥</div>
+            {/* Floating hearts around cat - Responsive Positioning */}
+            <div className="absolute top-[8%] left-[15%] animate-bounce-soft text-[#ff4d4d] text-lg md:text-xl">♥</div>
+            <div className="absolute top-[6%] right-[18%] animate-pulse text-[#ff8fab] text-lg md:text-xl">♥</div>
 
-            <div className="mt-2">
+            <div className="mt-2 scale-90 md:scale-100">
               <PixelCat happy />
             </div>
 
             <div className="flex flex-col items-center gap-1">
-              <p className="text-[#ff4d4d] text-2xl md:text-3xl font-bold font-pixel tracking-wide animate-pulse-glow text-center">
-                Yippeeee!
+              <p className="text-[#ff4d4d] text-xl md:text-3xl font-bold font-pixel tracking-wide animate-pulse-glow text-center">
+                เย้ ~~ รักนะค้าบบบบบ
               </p>
             </div>
 
             {/* Date Box - Red Border, Pink Background */}
-            <div className="w-full max-w-[90%] border-4 border-[#ff4d4d] bg-[#ffe6e6] p-4 text-center mt-2 relative">
-              <p className="text-[10px] md:text-xs text-[#888] font-bold tracking-widest mb-2 uppercase">
+            <div className="w-full max-w-[95%] md:max-w-[90%] border-4 border-[#ff4d4d] bg-[#ffe6e6] p-3 md:p-4 text-center mt-2 relative">
+              <p className="text-[10px] md:text-xs text-[#888] font-bold tracking-widest mb-1 md:mb-2 uppercase">
                 ♡ Valentine Day ♡
               </p>
 
               <div className="font-pixel text-[#333] space-y-1">
-                <p className="text-lg md:text-xl font-bold">
+                <p className="text-base md:text-xl font-bold leading-tight">
                   Love You Naa Jaa
                 </p>
-                <p className="text-base md:text-lg">
+                <p className="text-sm md:text-lg">
                   Jup Jup
                 </p>
-                <p className="text-base md:text-lg">
+                <p className="text-sm md:text-lg">
                   💖💗❤️
                 </p>
               </div>
 
-              <p className="text-[#ff4d4d] text-sm mt-3 font-bold uppercase tracking-wide flex items-center justify-center gap-2">
-                อยู่ด้วยกันไปนานๆน้าาา <span className="animate-spin-slow">✨</span>
+              <p className="text-[#ff4d4d] text-xs md:text-sm mt-3 font-bold uppercase tracking-wide flex items-center justify-center gap-2">
+                อยู่ด้วยกันไปนานๆน้าาา <span className="animate-spin-slow text-lg">✨</span>
               </p>
             </div>
 
-            {/* Support / Contact Section (New) */}
-            <div className="w-full max-w-[90%] mt-4 flex flex-col items-center gap-3 border-t-2 border-dashed border-[#ffb7c5] pt-4">
-              <p className="text-[#ff4d4d] font-pixel text-xs md:text-sm animate-pulse font-bold">
+            {/* Support / Contact Section */}
+            <div className="w-full max-w-[95%] md:max-w-[90%] mt-3 md:mt-4 flex flex-col items-center gap-2 md:gap-3 border-t-2 border-dashed border-[#ffb7c5] pt-3 md:pt-4">
+              <p className="text-[#ff4d4d] font-pixel text-[10px] md:text-sm animate-pulse font-bold text-center">
                 💌 ติดต่อเพิ่มเติม / สนับสนุนเราได้ที่ 👇
               </p>
 
@@ -85,21 +85,21 @@ const AcceptedState = () => {
                   <img
                     src={qrCodeImage}
                     alt="QR Code PromptPay"
-                    className="w-32 h-32 md:w-36 md:h-36 object-contain"
+                    className="w-24 h-24 md:w-36 md:h-36 object-contain"
                     style={{ imageRendering: "pixelated" }}
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/10 transition-colors rounded-lg">
-                    <span className="opacity-0 group-hover:opacity-100 text-white text-[10px] bg-black/60 px-2 py-1 rounded font-pixel">
+                    <span className="opacity-0 group-hover:opacity-100 text-[8px] md:text-[10px] text-white bg-black/60 px-2 py-1 rounded font-pixel whitespace-nowrap">
                       Click to zoom
                     </span>
                   </div>
                 </div>
 
                 {/* Cute bouncing decoration */}
-                <div className="absolute -top-3 -right-3 animate-bounce-soft text-xl">✨</div>
+                <div className="absolute -top-3 -right-3 animate-bounce-soft text-lg md:text-xl">✨</div>
               </div>
 
-              <p className="text-[#ff8fab] text-[10px] md:text-xs font-pixel mt-1">
+              <p className="text-[#ff8fab] text-[9px] md:text-xs font-pixel mt-1 text-center">
                 ขอบคุณนะค๊าบบบบ~ 💖
               </p>
             </div>

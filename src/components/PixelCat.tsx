@@ -13,7 +13,7 @@ const PixelCat = ({ happy = false }: PixelCatProps) => {
       <img
         src={happy ? pixelCatHappyImage : pixelCatImage}
         alt={happy ? "Happy pixel cat celebrating" : "Pixel cat holding a heart"}
-        className="w-48 h-48 md:w-56 md:h-56 object-contain relative z-10"
+        className="w-[clamp(160px,50vw,224px)] h-[clamp(160px,50vw,224px)] object-contain relative z-10"
         style={{ imageRendering: "pixelated" }}
       />
 
