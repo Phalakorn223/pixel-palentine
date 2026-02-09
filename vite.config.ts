@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/pixel-palentine/",
+  base: mode === 'production' && !process.env.NETLIFY ? "/pixel-palentine/" : "/",
   server: {
     host: "::",
     port: 8080,

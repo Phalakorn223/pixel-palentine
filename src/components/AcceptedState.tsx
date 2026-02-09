@@ -93,7 +93,7 @@ const AcceptedState = () => {
                 </div>
 
                 {/* Cute bouncing decoration */}
-                {/* <div className="absolute -top-3 -right-3 animate-bounce-soft text-lg md:text-xl">✨</div> */}
+                <div className="absolute -top-3 -right-3 animate-bounce-soft text-lg md:text-xl">✨</div>
               </div>
 
               <p className="text-[#ff8fab] text-[9px] md:text-xs font-pixel mt-1 text-center">
