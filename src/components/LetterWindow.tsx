@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback, type MouseEvent } from "react";
 import PixelCat from "./PixelCat";
 
 interface LetterWindowProps {
@@ -7,7 +7,7 @@ interface LetterWindowProps {
 
 const LetterWindow = ({ onAccept }: LetterWindowProps) => {
   const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 });
-  const [isNoButtonMoving, setIsNoButtonMoving] = useState(false);
+  const [hasMoved, setHasMoved] = useState(false); // Track if button has moved from initial position
   const containerRef = useRef<HTMLDivElement>(null);
   const noButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -16,156 +16,87 @@ const LetterWindow = ({ onAccept }: LetterWindowProps) => {
     const container = containerRef.current;
     if (!container) return;
 
-<<<<<<< HEAD
-    const containerRect = container.getBoundingClientRect();
-    // Position button initially at its default location within the window
-    setNoButtonPos({
-      x: containerRect.left + containerRect.width / 2 + 40, // Offset to the right of YES button
-      y: containerRect.top + containerRect.height - 80, // Near bottom of window
-=======
-    const rect = container.getBoundingClientRect();
-    // Allow button to escape outside the container (range: -150 to container width + 100)
-    const minX = -150;
-    const maxX = rect.width + 100;
-    const minY = -80;
-    const maxY = rect.height + 60;
-    
-    const newX = minX + Math.random() * (maxX - minX);
-    const newY = minY + Math.random() * (maxY - minY);
-
-    setNoButtonStyle({
-      position: "absolute",
-      left: `${newX}px`,
-      top: `${newY}px`,
-      transition: "all 0.2s ease",
-      zIndex: 50,
->>>>>>> 7475f5f8e8a5ed1512e0fad318f5fb865ec10a0f
-    });
-  }, []);
-
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    const noButton = noButtonRef.current;
-    if (!noButton) return;
-
-    const buttonRect = noButton.getBoundingClientRect();
-
-    // Get mouse position (viewport coordinates)
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
-
-    // Get button center position (viewport coordinates)
-    const buttonCenterX = buttonRect.left + buttonRect.width / 2;
-    const buttonCenterY = buttonRect.top + buttonRect.height / 2;
-
-    // Calculate distance between mouse and button center
-    const distance = Math.sqrt(
-      Math.pow(mouseX - buttonCenterX, 2) +
-      Math.pow(mouseY - buttonCenterY, 2)
-    );
-
-    // If mouse is within 150px of button, move it away
-    const evadeRadius = 150;
-    if (distance < evadeRadius) {
-      setIsNoButtonMoving(true);
-
-      // Calculate direction away from mouse
-      const angle = Math.atan2(buttonCenterY - mouseY, buttonCenterX - mouseX);
-
-      // Move button away from mouse
-      const moveDistance = 100;
-      let newX = buttonCenterX + Math.cos(angle) * moveDistance;
-      let newY = buttonCenterY + Math.sin(angle) * moveDistance;
-
-      // Keep button within viewport bounds
-      const padding = 20;
-      const maxX = window.innerWidth - buttonRect.width - padding;
-      const maxY = window.innerHeight - buttonRect.height - padding;
-
-      newX = Math.max(padding, Math.min(maxX, newX));
-      newY = Math.max(padding, Math.min(maxY, newY));
-
-      setNoButtonPos({ x: newX, y: newY });
-    }
-  }, []);
-
-  // Add global mouse move listener
-  useEffect(() => {
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+    // Initial position relative to the container (for the first render)
+    // We'll update this once to set the initial fixed position correctly
+    const updateInitialPos = () => {
+      if (!hasMoved && container) {
+        const containerRect = container.getBoundingClientRect();
+        setNoButtonPos({
+          x: containerRect.left + containerRect.width / 2 + 40, // Offset to the right of YES button
+          y: containerRect.top + containerRect.height - 80, // Near bottom of window
+        });
+      }
     };
-  }, [handleMouseMove]);
+
+    updateInitialPos();
+    window.addEventListener('resize', updateInitialPos);
+    return () => window.removeEventListener('resize', updateInitialPos);
+  }, [hasMoved]);
+
+  // Handle No button click - Teleport to random location
+  const handleNoClick = useCallback((e: MouseEvent) => {
+    e.preventDefault(); // Prevent any default button behavior
+    e.stopPropagation(); // Stop event bubbling
+
+    setHasMoved(true); // Mark as moved so it doesn't reset on resize to center
+
+    const buttonWidth = noButtonRef.current?.offsetWidth || 100;
+    const buttonHeight = noButtonRef.current?.offsetHeight || 40;
+
+    // Calculate reliable random position within viewport
+    const padding = 20;
+    const maxX = window.innerWidth - buttonWidth - padding;
+    const maxY = window.innerHeight - buttonHeight - padding;
+    const minX = padding;
+    const minY = padding;
+
+    const newX = Math.random() * (maxX - minX) + minX;
+    const newY = Math.random() * (maxY - minY) + minY;
+
+    setNoButtonPos({ x: newX, y: newY });
+  }, []);
 
   return (
     <div className="animate-scale-in" style={{ animation: "scaleIn 0.4s ease-out" }}>
-      {/* Retro window */}
-<<<<<<< HEAD
+      {/* Retro window CSS implementation */}
       <div
-        className="relative w-[480px] md:w-[560px] overflow-visible"
+        className="relative w-[480px] md:w-[560px] overflow-visible bg-[#ffecf2] border-4 border-[#ffb7c5] shadow-[8px_8px_0_0_rgba(0,0,0,0.1)] rounded-lg"
         style={{
-          backgroundImage: `url(${pixelWindowBg})`,
-          backgroundSize: '100% 100%',
-          backgroundRepeat: 'no-repeat',
           imageRendering: 'pixelated',
           aspectRatio: '1/1.1',
-          filter: 'contrast(1.1) brightness(1.05)',
         }}
       >
-        {/* Content */}
-        <div
-          ref={containerRef}
-          className="absolute inset-0 pt-[25%] px-[8%] pb-[12%] flex flex-col items-center gap-8"
-=======
-      <div className="bg-card pixel-border-thick rounded-sm w-[320px] md:w-[400px] overflow-hidden">
-        {/* Title bar */}
-        <div className="bg-primary px-3 py-2 flex items-center justify-between">
+        {/* Decorative Header */}
+        <div className="h-12 border-b-4 border-[#ffb7c5] flex items-center justify-between px-4 bg-[#ffe4ea]">
+          <div className="text-[#ff8fab] font-bold tracking-widest text-lg font-pixel">LOVE</div>
           <div className="flex gap-2">
-            <span className="text-primary-foreground text-xs">♥</span>
-            <span className="text-primary-foreground text-xs">♥</span>
-            <span className="text-primary-foreground text-xs">♥</span>
+            <div className="w-4 h-4 bg-[#ffb7c5] rounded-full"></div>
+            <div className="w-4 h-4 bg-[#ffb7c5] rounded-full"></div>
           </div>
-          <span className="text-primary-foreground text-[10px] tracking-widest">
-            LOVE
-          </span>
-          <div className="w-12" />
         </div>
 
         {/* Content */}
         <div
           ref={containerRef}
-          className="relative p-6 md:p-8 flex flex-col items-center gap-6 min-h-[280px]"
->>>>>>> 7475f5f8e8a5ed1512e0fad318f5fb865ec10a0f
+          className="absolute inset-0 pt-[25%] px-[8%] pb-[12%] flex flex-col items-center gap-8"
         >
           <PixelCat />
 
-          <p className="text-foreground text-sm md:text-base text-center leading-relaxed font-pixel">
+          <p className="text-foreground text-sm md:text-base text-center leading-relaxed font-pixel mt-4">
             Will you be my Valentine?
           </p>
 
           {/* Buttons */}
-          <div className="flex gap-4 w-full justify-center relative h-16">
+          <div className="flex gap-4 w-full justify-center relative h-16 mt-auto mb-8">
             <button
               onClick={onAccept}
-              className="bg-pixel-green text-primary-foreground px-6 py-3 text-sm font-pixel pixel-border cursor-pointer hover:brightness-110 active:translate-y-[2px] transition-all z-10"
+              className="bg-pixel-green text-primary-foreground px-6 py-3 text-sm font-pixel pixel-border cursor-pointer hover:brightness-110 active:translate-y-[2px] transition-all z-10 shadow-md"
             >
               YES
             </button>
 
-<<<<<<< HEAD
             {/* Placeholder for NO button to maintain layout */}
-            {!isNoButtonMoving && (
-              <div className="w-[88px] h-[44px]"></div>
-            )}
-=======
-            <button
-              onMouseEnter={handleNoHover}
-              onTouchStart={handleNoHover}
-              style={noButtonStyle}
-              className="bg-primary text-primary-foreground px-5 py-2 text-[10px] font-pixel pixel-border cursor-pointer hover:brightness-110 active:translate-y-[2px] transition-all z-10"
-            >
-              NO
-            </button>
->>>>>>> 7475f5f8e8a5ed1512e0fad318f5fb865ec10a0f
+            <div className="w-[88px] h-[44px]"></div>
           </div>
         </div>
       </div>
@@ -173,16 +104,17 @@ const LetterWindow = ({ onAccept }: LetterWindowProps) => {
       {/* NO button positioned absolutely relative to viewport */}
       <button
         ref={noButtonRef}
+        onClick={handleNoClick}
         style={{
           position: "fixed",
           left: `${noButtonPos.x}px`,
           top: `${noButtonPos.y}px`,
-          transition: "all 0.3s ease-out",
+          transition: "all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)", // Snappy movement
           zIndex: 9999,
         }}
-        className="bg-primary text-primary-foreground px-6 py-3 text-sm font-pixel pixel-border cursor-pointer hover:brightness-110 transition-all"
+        className="bg-primary text-primary-foreground px-6 py-3 text-sm font-pixel pixel-border cursor-pointer hover:brightness-110 transition-all shadow-md active:scale-95"
       >
-        ❌ NO
+        NO
       </button>
 
       <style>{`
