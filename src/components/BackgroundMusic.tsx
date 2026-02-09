@@ -38,13 +38,24 @@ const BackgroundMusic = () => {
             <div className="hidden">
                 {/* @ts-ignore */}
                 <ReactPlayer
-                    url="https://www.youtube.com/watch?v=BH-SnQ8J1VU"
+                    url="https://www.youtube.com/embed/BH-SnQ8J1VU"
                     playing={isPlaying}
                     loop={true}
                     volume={0.5}
                     muted={isMuted}
-                    width="0"
-                    height="0"
+                    width="100%"
+                    height="100%"
+                    config={{
+                        youtube: {
+                            playerVars: {
+                                autoplay: 1,
+                                controls: 0,
+                                showinfo: 0,
+                                rel: 0,
+                                modestbranding: 1
+                            }
+                        }
+                    }}
                 />
             </div>
 
