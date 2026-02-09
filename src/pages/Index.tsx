@@ -2,6 +2,7 @@ import { useState } from "react";
 import PixelEnvelope from "@/components/PixelEnvelope";
 import LetterWindow from "@/components/LetterWindow";
 import AcceptedState from "@/components/AcceptedState";
+import BackgroundMusic from "@/components/BackgroundMusic";
 
 type AppState = "closed" | "question" | "accepted";
 
@@ -19,6 +20,8 @@ const Index = () => {
       )}
 
       {state === "accepted" && <AcceptedState />}
+
+      <BackgroundMusic />
     </div>
   );
 };
