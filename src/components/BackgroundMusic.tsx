@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 // @ts-ignore
-import ReactPlayer from "react-player/lazy";
+import ReactPlayer from "react-player";
 import { Music, Music2, Volume2, VolumeX } from "lucide-react";
 import { Button } from "./ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
